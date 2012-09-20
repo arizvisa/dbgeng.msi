@@ -1,0 +1,17 @@
+[req]
+default_md=sha1
+prompt=no
+distinguished_name=req_distinguished_name
+x509_extensions=v3_ca
+[req_distinguished_name]
+CN=Microsoft Root Certificate Authority
+DC=microsoft
+DC=com
+[v3_ca]
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
+basicConstraints=CA:true
+[v3_code]
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
+extendedKeyUsage=codeSigning

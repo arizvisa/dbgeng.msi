@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+    <Product Id='9cce1ea7-82a5-4ea0-ad96-a36a31417874'
+             Name='Windows Debugging Tools SxS Installer'
+             Language='1033'
+             Version='6.12.2.633'
+             Manufacturer='Microsoft Corporation'>
+
+        <Package Description='Windows Debugging Tools SxS Installer'
+                 Comments='Windows Debugging Tools SxS Installer'
+                 Manufacturer='Microsoft Corporation' 
+                 InstallerVersion='200' Compressed='yes' />
+
+        <Media Id='1' Cabinet='setup.cab' EmbedCab='yes' />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="INSTALLLOCATION">
+                <Component Id="DbgengDLL" Guid="{185CFDDF-CFA9-4DEF-8392-02953010F5C0}" DiskId='1'>
+                    <File Name="DBGENG.DLL" AssemblyManifest="dbgeng.dll.manifest" Assembly="win32" Source="out\dbgeng.dll" KeyPath="yes" Vital="yes" />
+                    <File Name="dbgeng.dll.manifest" Source="out\dbgeng.dll.manifest" Vital="yes" />
+                    <File Name="dbgeng.dll.cat" Source="out\dbgeng.dll.cat" Vital="yes" />
+                </Component>
+
+                <Component Id="_DbghelpDLL" Guid="{19E8A76A-4636-45E6-9E6F-2918779C114F}" DiskId='1'>
+                    <File Name="DBGHELP.DLL" AssemblyManifest="dbghelp.dll.manifest" Assembly="win32" Source="out\dbghelp.dll" KeyPath="yes" Vital="yes" />
+                    <File Name="dbghelp.dll.manifest" Source="out\dbghelp.dll.manifest" Vital="yes" />
+                    <File Name="dbghelp.dll.cat" Source="out\dbghelp.dll.cat" Vital="yes" />
+                </Component>
+            </Directory>
+        </Directory>
+
+        <Feature Id='SxSDbgEng' 
+                 Level='1'
+                 InstallDefault='local'
+                 TypicalDefault='install'
+                 Title='SxS DbgEng'
+                 Description='register DbgEng shared libraries into SxS'
+                 Display='expand'
+                 ConfigurableDirectory='INSTALLLOCATION'>
+
+            <ComponentRef Id="DbgengDLL" />
+            <ComponentRef Id="_DbghelpDLL" />
+        </Feature>
+    </Product>
+</Wix>
